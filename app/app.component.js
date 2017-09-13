@@ -17,19 +17,18 @@ var AppComponent = (function () {
             new Task("Rewatch all the Lord of the Rings movies.", 2),
             new Task("Do the laundry.", 3)
         ];
+        this.selectedTask = null;
     }
-    AppComponent.prototype.doStuff = function (clickedTask) {
-        if (clickedTask.done === true) {
-            alert("This task is done!");
-        }
-        else {
-            alert("This task is not completed yet! Get to work!");
-        }
+    AppComponent.prototype.showDetails = function (clickedTask) {
+        this.selectedTask = clickedTask;
+    };
+    AppComponent.prototype.finishedEditing = function () {
+        this.selectedTask = null;
     };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n  <div class=\"container\">\n    <h1>My First Angular 2 App</h1>\n    <h3 (click)=\"doStuff(currentTask)\" *ngFor=\"let currentTask of tasks\">{{ currentTask.description }}</h3>\n  </div>\n  "
+            template: "\n  <div class=\"container\">\n    <h1>My First Angular 2 App</h1>\n    <div *ngFor=\"let currentTask of tasks\">\n      <h3>{{ currentTask.description }}</h3>\n      <button (click)=\"showDetails(currentTask)\">Edit</button>\n    </div>\n    <div *ngIf=\"selectedTask\">\n      <h1>Edit Task</h1>\n      <div>\n        <label>Enter Task Description:</label>\n        <input [(ngModel)]=\"selectedTask.description\">\n      </div>\n      <div>\n        <label>Enter Task ID:</label>\n        <input [(ngModel)]=\"selectedTask.id\">\n        <button (click)=\"finishedEditing()\">Done</button>\n      </div>\n    </div>\n  </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
