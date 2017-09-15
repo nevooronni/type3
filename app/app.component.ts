@@ -7,7 +7,7 @@ import { Task } from './task.model';
   <div class="container">
     <h1>My First Angular 2 App</h1>
     <pies></pies>
-    <task-list 
+    <task-list
       [childTaskList]="masterTaskList"
       (clickSender)="showDetails($event)"
      ></task-list>
@@ -15,6 +15,9 @@ import { Task } from './task.model';
       [childSelectedTask]="selectedTask"
       (doneClickedSender)="finishedEditing()"
     ></edit-task>
+    <new-task
+      (newTaskSender)="addTask($event)"
+    ></new-task>
   </div>
   `
 })
@@ -32,5 +35,8 @@ export class AppComponent {
   }
   finishedEditing() {
     this.selectedTask = null;
+  }
+  addTask(newTaskFromChild: Task) {
+    this.masterTaskList.push(newTaskFromChild);
   }
 }
